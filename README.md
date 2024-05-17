@@ -12,12 +12,12 @@ To start using the Assistant Framework, follow these steps:
 
 ## Documentation
 
-- [Player Class](Player.md): Provides methods and properties for interacting with the player character.
-- [Items Class](Items.md): Provides methods for finding and filtering items.
-- [Mobiles Class](Mobiles.md): Provides methods for finding and filtering mobiles (NPCs and monsters).
-- [Gumps Class](Gumps.md): Provides methods for interacting with user interface gumps.
-- [Messages Class](Messages.md): Provides methods for printing out messages.
-- [Generic Functions](Generic_Functions.md): Provides generic functions for interacting with the assistant and the world.
+- [Player Class](https://github.com/uosagas/assistant/wiki/Player): Provides methods and properties for interacting with the player character.
+- [Items Class](https://github.com/uosagas/assistant/wiki/Items): Provides methods for finding and filtering items.
+- [Mobiles Class](https://github.com/uosagas/assistant/wiki/Mobiles): Provides methods for finding and filtering mobiles (NPCs and monsters).
+- [Gumps Class](https://github.com/uosagas/assistant/wiki/Gumps): Provides methods for interacting with user interface gumps.
+- [Messages Class](https://github.com/uosagas/assistant/wiki/Messages): Provides methods for printing out messages.
+- [Generic Functions](https://github.com/uosagas/assistant/wiki/Generic-Functions): Provides generic functions for interacting with the assistant and the world.
 
 ## Contributing
 
