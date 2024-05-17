@@ -1,4 +1,4 @@
-# Welcome to Your Assistant Framework Documentation!
+# Welcome to the UOSagas Assistant Framework Documentation!
 
 This repository contains documentation for the Assistant Framework, a collection of utility classes and methods for interacting with Ultima Online servers.
 
@@ -16,6 +16,8 @@ To start using the Assistant Framework, follow these steps:
 - [Items Class](Items.md): Provides methods for finding and filtering items.
 - [Mobiles Class](Mobiles.md): Provides methods for finding and filtering mobiles (NPCs and monsters).
 - [Gumps Class](Gumps.md): Provides methods for interacting with user interface gumps.
+- [Messages Class](Messages.md): Provides methods for printing out messages.
+- [Generic Functions](Generic_Functions.md): Provides generic functions for interacting with the assistant and the world.
 
 ## Contributing
 
