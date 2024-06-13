@@ -12,9 +12,9 @@ To start using the Assistant Framework, follow these steps:
 
 ## Documentation
 
-- [Player](): Provides methods and properties for interacting with the player character.
-- [Items](): Provides methods for finding and filtering items.
-- [Mobiles](): Provides methods for finding and filtering mobiles (NPCs and monsters).
+- [Player TBD](): Provides methods and properties for interacting with the player character.
+- [Items TBD](): Provides methods for finding and filtering items.
+- [Mobiles TBD](): Provides methods for finding and filtering mobiles (NPCs and monsters).
 - [Spells](https://github.com/uosagas/assistant/wiki/Spells): Provides methods for helping with spell casting.
 - [Targeting](https://github.com/uosagas/assistant/wiki/Targeting): Provides methods for interacting with targets.
 - [Gumps](https://github.com/uosagas/assistant/wiki/Gumps): Provides methods for interacting with user interface gumps.
