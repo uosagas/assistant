@@ -19,7 +19,6 @@ To start using the Assistant Framework, follow these steps:
 - [Targeting](https://github.com/uosagas/assistant/wiki/Targeting): Provides methods for interacting with targets.
 - [Gumps](https://github.com/uosagas/assistant/wiki/Gumps): Provides methods for interacting with user interface gumps.
 - [Messages](https://github.com/uosagas/assistant/wiki/Messages): Provides methods for printing out messages.
-- [Generic Functions](https://github.com/uosagas/assistant/wiki/Generic-Functions): Provides generic functions for interacting with the assistant and the world.
 
 ## Contributing
 
