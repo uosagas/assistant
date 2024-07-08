@@ -1,7 +1,13 @@
+--=========================
+--Adjust settings here
+pauseInSeconds = 10
+instrumentGraphic = 0x0E9D
+--=========================
+
 while true do
-	instrument = Items.FindByType(0x0E9D)
+	instrument = Items.FindByType(instrumentGraphic)
 	if instrument then
 		Player.UseObject(instrument.Serial)
-		Pause(10000)
+		Pause(pauseInSeconds*100)
 	end
 end
