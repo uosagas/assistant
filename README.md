@@ -16,6 +16,7 @@ To start using the Assistant Framework, follow these steps:
 - [Items](https://github.com/uosagas/assistant/wiki/Items): Provides methods for finding and filtering items.
 - [Mobiles](https://github.com/uosagas/assistant/wiki/Mobiles): Provides methods for finding and filtering mobiles (NPCs and monsters).
 - [Spells](https://github.com/uosagas/assistant/wiki/Spells): Provides methods for helping with spell casting.
+- [Skills](https://github.com/uosagas/assistant/wiki/Skills): Provides methods for helping with skill handling.
 - [Targeting](https://github.com/uosagas/assistant/wiki/Targeting): Provides methods for interacting with targets.
 - [Gumps](https://github.com/uosagas/assistant/wiki/Gumps): Provides methods for interacting with user interface gumps.
 - [Messages](https://github.com/uosagas/assistant/wiki/Messages): Provides methods for printing out messages.
