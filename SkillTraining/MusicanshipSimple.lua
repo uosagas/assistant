@@ -8,6 +8,6 @@ while true do
 	instrument = Items.FindByType(instrumentGraphic)
 	if instrument then
 		Player.UseObject(instrument.Serial)
-		Pause(pauseInSeconds*100)
+		Pause(pauseInSeconds*1000)
 	end
 end
