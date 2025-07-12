@@ -330,7 +330,7 @@ local function craftSpell(circle, spell, index, spellBookId)
             Pause(1500) 
             goto continue 
         end 
-        Pause(100)
+        Pause(250)
 
 		Gumps.PressButton(INSCRIPTION_GUMP, spell.buttonId) 
         if not Gumps.WaitForGump(INSCRIPTION_GUMP, 2000) then 
@@ -338,7 +338,7 @@ local function craftSpell(circle, spell, index, spellBookId)
             Pause(1500)
             goto continue 
         end 
-        Pause(100)
+        Pause(250)
 
 		updateCraftingStatus('Crafting ' .. spell.name, 'White') 
         Gumps.PressButton(INSCRIPTION_GUMP, craftBtn) Pause(2000)
@@ -366,8 +366,7 @@ end
 
 while true do
 	updateManaBar()
-
-    requirementsMet = true
+    	requirementsMet = true
 
 	if selectSpellBookClicked then
 		spellbookSerial = Targeting.GetNewTarget(10000)
@@ -410,4 +409,3 @@ while true do
 
 	Pause(50)
 end
-
