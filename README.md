@@ -21,7 +21,11 @@ To start using the Assistant Framework, follow these steps:
 - [Gumps](https://github.com/uosagas/assistant/wiki/Gumps): Provides methods for interacting with user interface gumps.
 - [Messages](https://github.com/uosagas/assistant/wiki/Messages): Provides methods for printing out messages.
 - [Journal](https://github.com/uosagas/assistant/wiki/Journal): Provides methods for reading and clearing the journal.
+- [UI](https://github.com/uosagas/assistant/wiki/ui): Provides comprehensive UI system for Lua scripts.
+
 - [Scripting FAQ](https://github.com/uosagas/assistant/wiki/sFAQ): Answers commonly asked questions about scripting in LUA on UOSagas.
+
+
 
 ## Contributing
 
