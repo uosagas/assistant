@@ -1,8 +1,39 @@
 -- Name: Fishing and Boating Assistant
--- Authors: Tacuba 
+-- Authors: Tacuba, Coolskin
 -- Description: Boat navigation Gump
 --              and fishing assistance
--- Last Updated: July 12, 2025
+-- Last Updated: August 1, 2025
+
+-- ====================================
+-- ADDED: Coordinate Conversion Function
+-- ====================================
+local function ConvertXYtoNEWS(x, y)
+    -- Calculation constants
+    local width = 5120
+    local height = 4096
+    local center_x = 1323.1624
+    local center_y = 1624
+    
+    -- Inverse calculation
+    local normalized_longitude = (((x - center_x) * 360) / width)
+    if normalized_longitude < 0 then normalized_longitude = normalized_longitude + 360 end
+    local normalized_latitude = (((y - center_y) * 360) / height)
+    if normalized_latitude < 0 then normalized_latitude = normalized_latitude + 360 end
+    
+    -- Determine hemisphere and decimal degrees
+    local dec_lat, lat_hem, dec_lon, lon_hem
+    if normalized_latitude > 180 then dec_lat = 360 - normalized_latitude; lat_hem = "N" else dec_lat = normalized_latitude; lat_hem = "S" end
+    if normalized_longitude > 180 then dec_lon = 360 - normalized_longitude; lon_hem = "W" else dec_lon = normalized_longitude; lon_hem = "E" end
+
+    -- Convert to Degrees and Minutes
+    local lat_deg = math.floor(dec_lat)
+    local lat_min = math.floor((dec_lat - lat_deg) * 60)
+    local lon_deg = math.floor(dec_lon)
+    local lon_min = math.floor((dec_lon - lon_deg) * 60)
+
+    -- Final formatting without the '°' symbol
+    return lat_deg .. "d " .. lat_min .. "'" .. lat_hem .. ", " .. lon_deg .. "d " .. lon_min .. "'" .. lon_hem
+end
 
 -- ====================================
 -- Ship Navigation Gump
@@ -10,6 +41,7 @@
 
 local navWindow = nil
 local coordLabel = nil
+local newsCoordLabel = nil -- ADDED for Geo Coords
 local statusLabel = nil
 local speedSingleCheck = nil
 local speedNormalCheck = nil
@@ -38,16 +70,21 @@ if navWindow then
     coordLabel = navWindow:AddLabel(160, 50, 'n/a')
     coordLabel:SetColor(0.3,1,0.3,1)
 
-    -- Ship Status
-    navWindow:AddLabel(50, 70, 'Status: '):SetColor(1, 1, 1, 1)
-    statusLabel = navWindow:AddLabel(110, 70, 'n/a')
+    -- ADDED: Geo Coords Label
+    navWindow:AddLabel(50, 70, 'Geo. Coords:'):SetColor(1,1,1,1)
+    newsCoordLabel = navWindow:AddLabel(160, 70, 'n/a')
+    newsCoordLabel:SetColor(0.3, 0.8, 1, 1)
+
+    -- Ship Status - MOVED DOWN
+    navWindow:AddLabel(50, 90, 'Status: '):SetColor(1, 1, 1, 1)
+    statusLabel = navWindow:AddLabel(110, 90, 'n/a')
     statusLabel:SetColor(1,1,0.3,1)
 
-    -- Speed Toggle
-    navWindow:AddLabel(20, 95, 'SPEED'):SetColor(1, 1, 1, 1)
+    -- Speed Toggle - MOVED DOWN
+    navWindow:AddLabel(20, 115, 'SPEED'):SetColor(1, 1, 1, 1)
 
-    speedSingleCheck = navWindow:AddCheckbox(50, 110, '1 Tile', false)
-    speedNormalCheck = navWindow:AddCheckbox(50, 135, 'Normal', true)
+    speedSingleCheck = navWindow:AddCheckbox(50, 130, '1 Tile', false)
+    speedNormalCheck = navWindow:AddCheckbox(50, 155, 'Normal', true)
 
     -- Radio behavior: keep state synced
     speedSingleCheck:SetOnCheckedChanged(function(isChecked)
@@ -70,10 +107,10 @@ if navWindow then
         end
     end)
 
-    -- Navigation Buttons
-    navWindow:AddLabel(20, 165, 'NAVIGATION'):SetColor(1, 1, 1, 1)
+    -- Navigation Buttons - MOVED DOWN
+    navWindow:AddLabel(20, 185, 'NAVIGATION'):SetColor(1, 1, 1, 1)
 
-    navWindow:AddButton(135, 180, ' Forward '):SetOnClick(function()
+    navWindow:AddButton(135, 200, ' Forward '):SetOnClick(function()
         local command = "Forward"
         if isSingleCheck then
             command = command .. " One"
@@ -82,7 +119,7 @@ if navWindow then
         shipStatus = "Forward"
     end)
 
-    navWindow:AddButton(70, 210, ' Forward \nStarboard '):SetOnClick(function()
+    navWindow:AddButton(70, 230, ' Forward \nStarboard '):SetOnClick(function()
         local command = "Forward Left"
         if isSingleCheck then
             command = command .. " One"
@@ -91,7 +128,7 @@ if navWindow then
         shipStatus = "Forward, Starboard"
     end)
 
-    navWindow:AddButton(200, 210, ' Forward \n  Port  '):SetOnClick(function()
+    navWindow:AddButton(200, 230, ' Forward \n  Port  '):SetOnClick(function()
         local command = "Forward Right"
         if isSingleCheck then
             command = command .. " One"
@@ -100,7 +137,7 @@ if navWindow then
         shipStatus = "Forward, Port"
     end)
 
-    navWindow:AddButton(20, 255, ' Turn \n Left'):SetOnClick(function()
+    navWindow:AddButton(20, 275, ' Turn \n Left'):SetOnClick(function()
         local command = "Turn Left"
         if isSingleCheck then
             command = "Turn Left"
@@ -109,7 +146,7 @@ if navWindow then
         shipStatus = "Turning Left"
     end)
 
-    navWindow:AddButton(80, 255, ' Drift \n Left'):SetOnClick(function()
+    navWindow:AddButton(80, 275, ' Drift \n Left'):SetOnClick(function()
         local command = "Drift Left"
         if isSingleCheck then
             command = "Left One"
@@ -118,12 +155,12 @@ if navWindow then
         shipStatus = "Drifting Left"
     end)
 
-    navWindow:AddButton(145, 250, '\n Stop \n '):SetOnClick(function()
+    navWindow:AddButton(145, 270, '\n Stop \n '):SetOnClick(function()
         Player.Say("Stop")
         shipStatus = "Stopped"
     end)
 
-    navWindow:AddButton(205, 255, ' Drift \n Right'):SetOnClick(function()
+    navWindow:AddButton(205, 275, ' Drift \n Right'):SetOnClick(function()
         local command = "Drift Right"
         if isSingleCheck then
             command = "Right one"
@@ -132,7 +169,7 @@ if navWindow then
         shipStatus = "Drifting Right"
     end)
 
-    navWindow:AddButton(270, 255, ' Turn \n Right '):SetOnClick(function()
+    navWindow:AddButton(270, 275, ' Turn \n Right '):SetOnClick(function()
         local command = "Turn Right"
         if isSingleCheck then
             command = "Turn Right"
@@ -141,7 +178,7 @@ if navWindow then
         shipStatus = "Turning Right"
     end)
 
-    navWindow:AddButton(70, 305, ' Backward \nStarboard '):SetOnClick(function()
+    navWindow:AddButton(70, 325, ' Backward \nStarboard '):SetOnClick(function()
         local command = "Backward Left"
         if isSingleCheck then
             command = command .. " One"
@@ -150,7 +187,7 @@ if navWindow then
         shipStatus = "Backward, Starboard"
     end)
 
-    navWindow:AddButton(200, 305, ' Backward \n  Port  '):SetOnClick(function()
+    navWindow:AddButton(200, 325, ' Backward \n  Port  '):SetOnClick(function()
         local command = "Backward Right"
         if isSingleCheck then
             command = command .. " One"
@@ -159,7 +196,7 @@ if navWindow then
         shipStatus = "Backward, Port"
     end)
 
-    navWindow:AddButton(145, 350, ' Back '):SetOnClick(function()
+    navWindow:AddButton(145, 370, ' Back '):SetOnClick(function()
         local command = "Back"
         if isSingleCheck then
             command = command .. " One"
@@ -168,20 +205,20 @@ if navWindow then
         shipStatus = "Reversing"
     end)
 
-    -- Anchor Section
-    navWindow:AddLabel(20, 375, 'ANCHOR'):SetColor(1, 1, 1, 1)
+    -- Anchor Section - MOVED DOWN
+    navWindow:AddLabel(20, 395, 'ANCHOR'):SetColor(1, 1, 1, 1)
 
-    navWindow:AddButton(60, 395, 'Raise Anchor'):SetOnClick(function()
+    navWindow:AddButton(60, 415, 'Raise Anchor'):SetOnClick(function()
         Player.Say("Raise Anchor")
         shipStatus = "Anchor Raised"
     end)
 
-    navWindow:AddButton(60, 420, 'Drop Anchor'):SetOnClick(function()
+    navWindow:AddButton(160, 415, 'Drop Anchor'):SetOnClick(function()
         Player.Say("Drop Anchor")
         shipStatus = "Anchor Dropped"
     end)
 
-    -- Fishing Assistant Script Section
+    -- Fishing Assistant Script Section - MOVED DOWN
     navWindow:AddLabel(20, 450, "TACUBA'S FISHING ASSISTANT"):SetColor(1, 1, 1, 1)
 
     fishingAssistantOn = navWindow:AddCheckbox(50, 470, 'On', false)
@@ -633,8 +670,18 @@ end
 -- Main Gump loop to update info
 while true do
     Pause(50)
-    coordLabel:SetText('(' .. Player.X .. ', ' .. Player.Y .. ')')
-    statusLabel:SetText(shipStatus)
+    
+    if navWindow and not navWindow.IsDisposed then
+        coordLabel:SetText('(' .. Player.X .. ', ' .. Player.Y .. ')')
+        
+        -- ADDED: Update geographical coordinates
+        local news_coords = ConvertXYtoNEWS(Player.X, Player.Y)
+        newsCoordLabel:SetText(news_coords)
+
+        statusLabel:SetText(shipStatus)
+    else
+        break -- Stop script if window is closed
+    end
 
     -- Check for Fishing Assistant request
     if isFishingOn then
