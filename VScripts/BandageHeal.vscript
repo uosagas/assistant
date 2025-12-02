@@ -3471,10 +3471,11 @@
   "variables": [],
   "_meta": {
     "tags": [
-      "utility"
+      "crafting"
     ],
+    "version": "1.0",
     "description": "",
     "uploadedBy": "3HMonkey",
-    "uploadedAt": "2025-12-02T15:07:32.147Z"
+    "uploadedAt": "2025-12-02T15:21:12.310Z"
   }
 }
